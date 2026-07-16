@@ -137,21 +137,19 @@ function Hero() {
             </motion.span>
             <motion.span
               style={{ opacity: line3Opacity, y: line3Y }}
-              className="block mt-3 md:mt-4 text-[clamp(2rem,6.5vw,5.25rem)]"
+              className="block mt-4 md:mt-6 text-white/90 text-[clamp(2rem,6vw,5rem)]"
             >
-              <span className="uppercase tracking-tight bg-gradient-to-r from-white via-white to-electric bg-clip-text text-transparent">
-                stronę internetową
-              </span>
+              stronę internetową
             </motion.span>
           </h1>
 
           <motion.div
             style={{ opacity: brandOpacity, y: brandY }}
-            className="mt-10 font-display font-bold text-white text-[clamp(2.75rem,8vw,6.5rem)] leading-none"
+            className="mt-20 md:mt-28 font-display font-bold text-white text-[clamp(2.75rem,8vw,6.5rem)] leading-none"
           >
             <span className="relative inline-block px-1">
               We
-              {showWeUnderline && <BrushUnderline delay={0.1} />}
+              {showWeUnderline && <BrushUnderline delay={0.15} />}
             </span>
             <span>Scale</span>
           </motion.div>
