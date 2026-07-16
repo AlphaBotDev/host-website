@@ -52,7 +52,7 @@ function BrushUnderline({
         </linearGradient>
       </defs>
       <motion.path
-        d="M4 14 C 40 4, 90 22, 150 12 S 260 4, 296 12"
+        d="M6 16 Q 150 2 294 14"
         fill="none"
         stroke={color}
         strokeWidth={strokeWidth}
