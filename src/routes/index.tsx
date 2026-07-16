@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
-import { ArrowRight, MessageCircle, Send, Star } from "lucide-react";
+import { ArrowRight, Check, Copy, MessageCircle, Send, Star } from "lucide-react";
 import mockup1 from "@/assets/mockup-1.jpg";
 import mockup2 from "@/assets/mockup-2.jpg";
 import mockup3 from "@/assets/mockup-3.jpg";
@@ -13,17 +13,65 @@ export const Route = createFileRoute("/")({
 });
 
 const WHATSAPP_NUMBER = "48531589533";
-const WHATSAPP_MESSAGE = "Jestem zainteresowany darmowym projektem strony internetowej, jestem chętny do dalszej współpracy";
+const WHATSAPP_MESSAGE =
+  "Jestem zainteresowany darmowym projektem strony internetowej, jestem chętny do dalszej współpracy";
 const WA_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 const SMS_URL = `sms:+${WHATSAPP_NUMBER}?&body=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
 const mockups = [mockup1, mockup2, mockup3, mockup4, mockup5];
 
+/**
+ * Organic brush-stroke underline. Renders as an SVG that scales to fill the
+ * width of its parent (which must be position: relative). Animates on scroll
+ * into view; text appears first, stroke draws under it.
+ */
+function BrushUnderline({
+  delay = 0.15,
+  duration = 1.1,
+  color = "url(#brushGrad)",
+  strokeWidth = 6,
+  className = "",
+}: {
+  delay?: number;
+  duration?: number;
+  color?: string;
+  strokeWidth?: number;
+  className?: string;
+}) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 300 24"
+      preserveAspectRatio="none"
+      className={`pointer-events-none absolute left-0 right-0 -bottom-2 w-full h-[0.42em] ${className}`}
+    >
+      <defs>
+        <linearGradient id="brushGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#00BFFF" />
+          <stop offset="100%" stopColor="#00D4FF" />
+        </linearGradient>
+      </defs>
+      <motion.path
+        d="M4 14 C 40 4, 90 22, 150 12 S 260 4, 296 12"
+        fill="none"
+        stroke={color}
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+        initial={{ pathLength: 0, opacity: 0 }}
+        whileInView={{ pathLength: 1, opacity: 1 }}
+        viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+        transition={{ pathLength: { duration, delay, ease: [0.65, 0, 0.35, 1] }, opacity: { duration: 0.2, delay } }}
+        style={{ filter: "drop-shadow(0 0 8px rgba(0,191,255,0.55))" }}
+      />
+    </svg>
+  );
+}
+
 function Nav() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 backdrop-blur-xl bg-[#0A0A0A]/60 border-b border-white/5">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <a href="#top" className="flex items-center gap-2 font-display text-lg font-bold tracking-tight">
+        <a href="#top" className="flex items-center gap-2 font-display text-lg font-semibold tracking-tight">
           <span className="inline-block h-2 w-2 rounded-full bg-electric animate-pulse-glow shadow-[0_0_12px_var(--electric)]" />
           WeScale
         </a>
@@ -35,51 +83,36 @@ function Nav() {
   );
 }
 
-function ScrollUnderline({ progress, children }: { progress: number; children: React.ReactNode }) {
-  return (
-    <span className="relative inline-block">
-      {children}
-      <span
-        className="absolute left-0 -bottom-1 h-[6px] rounded-full"
-        style={{
-          width: `${progress * 100}%`,
-          background: "linear-gradient(90deg, #00BFFF, #00D4FF)",
-          boxShadow: "0 0 20px rgba(0,191,255,0.7)",
-          transition: "width 80ms linear",
-        }}
-      />
-    </span>
-  );
-}
-
 function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
 
-  const line1Opacity = useTransform(scrollYProgress, [0, 0.05], [1, 1]);
-  const line2Opacity = useTransform(scrollYProgress, [0.05, 0.15], [0, 1]);
-  const line2Y = useTransform(scrollYProgress, [0.05, 0.15], [30, 0]);
-  const line3Opacity = useTransform(scrollYProgress, [0.2, 0.3], [0, 1]);
-  const line3Y = useTransform(scrollYProgress, [0.2, 0.3], [30, 0]);
-  const brandOpacity = useTransform(scrollYProgress, [0.4, 0.5], [0, 1]);
-  const brandY = useTransform(scrollYProgress, [0.4, 0.5], [40, 0]);
+  // Compressed sequence — user reaches "twoją" quickly
+  const line1Y = useTransform(scrollYProgress, [0, 0.15], [0, -12]);
+  const line2Opacity = useTransform(scrollYProgress, [0.05, 0.18], [0, 1]);
+  const line2Y = useTransform(scrollYProgress, [0.05, 0.18], [24, 0]);
+  const line3Opacity = useTransform(scrollYProgress, [0.22, 0.34], [0, 1]);
+  const line3Y = useTransform(scrollYProgress, [0.22, 0.34], [24, 0]);
+  const brandOpacity = useTransform(scrollYProgress, [0.45, 0.6], [0, 1]);
+  const brandY = useTransform(scrollYProgress, [0.45, 0.6], [30, 0]);
 
-  const [twojaUnderline, setTwojaUnderline] = useState(0);
-  const [weUnderline, setWeUnderline] = useState(0);
-
-  useMotionValueEvent(scrollYProgress, "change", (v) => {
-    setTwojaUnderline(Math.min(1, Math.max(0, (v - 0.1) / 0.12)));
-    setWeUnderline(Math.min(1, Math.max(0, (v - 0.5) / 0.15)));
+  // Once "twoją" is fully in, trigger the brush underline
+  const [showTwojaUnderline, setShowTwojaUnderline] = useState(false);
+  const [showWeUnderline, setShowWeUnderline] = useState(false);
+  scrollYProgress.on?.("change", (v) => {
+    if (v > 0.2 && !showTwojaUnderline) setShowTwojaUnderline(true);
+    if (v > 0.62 && !showWeUnderline) setShowWeUnderline(true);
   });
 
   return (
-    <section ref={ref} id="top" className="relative min-h-[260vh]">
-      {/* Sticky viewport */}
+    <section ref={ref} id="top" className="relative min-h-[200vh]">
       <div className="sticky top-0 h-screen overflow-hidden bg-hero">
-        {/* particles */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/4 left-1/5 h-96 w-96 rounded-full bg-[#00BFFF]/10 blur-3xl animate-float-slow" />
-          <div className="absolute bottom-1/4 right-1/5 h-[500px] w-[500px] rounded-full bg-[#00D4FF]/5 blur-3xl animate-float-slow" style={{ animationDelay: "3s" }} />
+          <div
+            className="absolute bottom-1/4 right-1/5 h-[500px] w-[500px] rounded-full bg-[#00D4FF]/5 blur-3xl animate-float-slow"
+            style={{ animationDelay: "3s" }}
+          />
           <div
             className="absolute inset-0 opacity-[0.04]"
             style={{
@@ -91,31 +124,38 @@ function Hero() {
         </div>
 
         <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-center px-6 text-center">
-          <motion.h1 className="font-display font-black leading-[0.95] tracking-tighter text-white text-[clamp(3rem,10vw,8rem)]">
-            <motion.span style={{ opacity: line1Opacity }} className="block">
+          <h1 className="font-display font-bold leading-[1.02] tracking-tight text-white text-[clamp(2.75rem,9vw,7rem)]">
+            <motion.span style={{ y: line1Y }} className="block">
               Zaprojektujemy
             </motion.span>
-            <motion.span style={{ opacity: line2Opacity, y: line2Y }} className="block mt-2">
-              <ScrollUnderline progress={twojaUnderline}>twoją</ScrollUnderline>
+            <motion.span style={{ opacity: line2Opacity, y: line2Y }} className="block mt-3 md:mt-4">
+              <span className="relative inline-block px-1">
+                twoją
+                {showTwojaUnderline && <BrushUnderline delay={0.1} />}
+              </span>
             </motion.span>
             <motion.span
               style={{ opacity: line3Opacity, y: line3Y }}
-              className="block mt-2 text-white/90 text-[clamp(2rem,6vw,5rem)]"
+              className="block mt-3 md:mt-4 text-[clamp(2rem,6.5vw,5.25rem)]"
             >
-              stronę internetową
+              <span className="uppercase tracking-tight bg-gradient-to-r from-white via-white to-electric bg-clip-text text-transparent">
+                stronę internetową
+              </span>
             </motion.span>
-          </motion.h1>
+          </h1>
 
           <motion.div
             style={{ opacity: brandOpacity, y: brandY }}
-            className="mt-10 font-display font-black text-white text-[clamp(3rem,9vw,7rem)] leading-none"
+            className="mt-10 font-display font-bold text-white text-[clamp(2.75rem,8vw,6.5rem)] leading-none"
           >
-            <ScrollUnderline progress={weUnderline}>We</ScrollUnderline>
+            <span className="relative inline-block px-1">
+              We
+              {showWeUnderline && <BrushUnderline delay={0.1} />}
+            </span>
             <span>Scale</span>
           </motion.div>
         </div>
 
-        {/* scroll hint */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs text-white/40 tracking-widest uppercase">
           Scroll ↓
         </div>
@@ -130,7 +170,7 @@ function CtaBlock() {
       <div className="mx-auto max-w-3xl flex flex-col items-center gap-6 text-center">
         <a
           href="#kontakt"
-          className="group relative inline-flex items-center gap-2 rounded-full border-2 border-electric bg-transparent px-10 py-5 font-display text-lg font-semibold text-white transition-all duration-300 hover:bg-electric hover:text-black hover:scale-105 hover:shadow-[0_0_40px_rgba(0,191,255,0.6)]"
+          className="group relative inline-flex items-center gap-2 rounded-full border-2 border-electric bg-transparent px-10 py-5 font-display text-lg font-medium text-white transition-all duration-300 hover:bg-electric hover:text-black hover:scale-105 hover:shadow-[0_0_40px_rgba(0,191,255,0.6)]"
         >
           <span>Otrzymaj darmowy projekt</span>
           <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -154,7 +194,7 @@ function CtaBlock() {
             {["from-[#00BFFF] to-[#0066cc]", "from-[#00D4FF] to-[#0099cc]", "from-[#66E0FF] to-[#00BFFF]"].map((g, i) => (
               <div
                 key={i}
-                className={`h-10 w-10 rounded-full bg-gradient-to-br ${g} border-2 border-[#0A0A0A] shadow-lg flex items-center justify-center text-[10px] font-bold text-white`}
+                className={`h-10 w-10 rounded-full bg-gradient-to-br ${g} border-2 border-[#0A0A0A] shadow-lg flex items-center justify-center text-[10px] font-semibold text-white`}
                 style={{ zIndex: 3 - i }}
               >
                 {["JK", "AM", "PW"][i]}
@@ -190,8 +230,12 @@ function Testimonials() {
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-electric tracking-widest uppercase mb-4">
             <Star className="h-3 w-3 fill-current" /> Opinie klientów
           </div>
-          <h2 className="font-display font-black text-4xl md:text-6xl tracking-tighter text-white">
-            Zaufali nam <span className="text-electric">wizjonerzy</span>
+          <h2 className="font-display font-semibold text-4xl md:text-6xl tracking-tight text-white">
+            Zaufali nam{" "}
+            <span className="relative inline-block px-1">
+              wizjonerzy
+              <BrushUnderline delay={0.2} />
+            </span>
           </h2>
         </div>
 
@@ -211,13 +255,13 @@ function Testimonials() {
                   <Star key={s} className="h-4 w-4 fill-electric text-electric" />
                 ))}
               </div>
-              <p className="text-lg text-white/80 leading-relaxed mb-8">"{t.quote}"</p>
+              <p className="text-lg text-white/80 leading-relaxed mb-8 font-normal">"{t.quote}"</p>
               <div className="flex items-center gap-4">
-                <div className="h-12 w-12 rounded-full bg-gradient-to-br from-[#00BFFF] to-[#0066cc] flex items-center justify-center font-bold text-white">
+                <div className="h-12 w-12 rounded-full bg-gradient-to-br from-[#00BFFF] to-[#0066cc] flex items-center justify-center font-semibold text-white">
                   {t.name.split(" ").map((n) => n[0]).join("")}
                 </div>
                 <div>
-                  <div className="font-semibold text-white">{t.name}</div>
+                  <div className="font-medium text-white">{t.name}</div>
                   <div className="text-sm text-white/50">{t.company}</div>
                 </div>
               </div>
@@ -272,10 +316,16 @@ function Pricing() {
     <section id="wycena" className="relative py-32 px-6">
       <div className="mx-auto max-w-6xl">
         <div className="mb-16 text-center">
-          <h2 className="font-display font-black text-4xl md:text-6xl tracking-tighter text-white">
-            Transparentna <span className="text-electric">wycena</span>
+          <h2 className="font-display font-semibold text-4xl md:text-6xl tracking-tight text-white">
+            Transparentna{" "}
+            <span className="relative inline-block px-1">
+              wycena
+              <BrushUnderline delay={0.2} />
+            </span>
           </h2>
-          <p className="mt-4 text-white/60 max-w-xl mx-auto">Trzy pakiety dopasowane do skali Twojego projektu. Bez ukrytych kosztów.</p>
+          <p className="mt-4 text-white/60 max-w-xl mx-auto font-normal">
+            Trzy pakiety dopasowane do skali Twojego projektu. Bez ukrytych kosztów.
+          </p>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           {tiers.map((t) => (
@@ -288,12 +338,12 @@ function Pricing() {
               }`}
             >
               {t.featured && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-electric text-black px-3 py-1 text-xs font-bold tracking-wide">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-electric text-black px-3 py-1 text-xs font-semibold tracking-wide">
                   NAJPOPULARNIEJSZY
                 </div>
               )}
               <div className="text-sm uppercase tracking-widest text-white/50">{t.name}</div>
-              <div className="mt-3 font-display text-3xl font-black text-white">{t.price}</div>
+              <div className="mt-3 font-display text-3xl font-semibold text-white">{t.price}</div>
               <ul className="mt-6 space-y-3">
                 {t.features.map((f) => (
                   <li key={f} className="flex items-center gap-2 text-white/70 text-sm">
@@ -309,6 +359,38 @@ function Pricing() {
   );
 }
 
+function CopyMessage() {
+  const [copied, setCopied] = useState(false);
+  const onCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(WHATSAPP_MESSAGE);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* ignore */
+    }
+  };
+  return (
+    <div className="mt-10 mx-auto max-w-xl rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-left">
+      <div className="flex items-center justify-between gap-3 mb-3">
+        <div className="text-xs uppercase tracking-widest text-electric">Gotowa wiadomość</div>
+        <button
+          type="button"
+          onClick={onCopy}
+          className="inline-flex items-center gap-1.5 rounded-full border border-electric/40 bg-electric/10 text-electric px-3 py-1.5 text-xs font-medium hover:bg-electric hover:text-black transition-all"
+          aria-label="Kopiuj wiadomość"
+        >
+          {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+          {copied ? "Skopiowano" : "Kopiuj"}
+        </button>
+      </div>
+      <p className="text-white/80 text-sm italic select-all cursor-text whitespace-pre-wrap break-words">
+        „{WHATSAPP_MESSAGE}"
+      </p>
+    </div>
+  );
+}
+
 function Contact() {
   return (
     <section id="kontakt" className="relative py-32 px-6 overflow-hidden">
@@ -320,35 +402,39 @@ function Contact() {
           <MessageCircle className="h-3 w-3" /> Napisz do nas
         </div>
 
-        <h2 className="font-display font-black text-4xl md:text-6xl tracking-tighter text-white mb-4">
-          Zacznijmy <span className="text-electric">rozmowę</span>
+        <h2 className="font-display font-semibold text-4xl md:text-6xl tracking-tight text-white mb-4">
+          Zacznijmy{" "}
+          <span className="relative inline-block px-1">
+            rozmowę
+            <BrushUnderline delay={0.2} />
+          </span>
         </h2>
-        <p className="text-white/60 mb-12 max-w-xl mx-auto">
+        <p className="text-white/60 mb-12 max-w-xl mx-auto font-normal">
           Zadzwoń, napisz na WhatsApp lub wyślij SMS. Odpowiadamy w mniej niż godzinę.
         </p>
 
-        {/* number with animated marker */}
-        <div className="relative inline-block mb-12">
+        {/* number with animated marker — enlarged */}
+        <div className="relative inline-block mb-12 px-8 py-6">
           <svg
-            className="absolute -inset-8 pointer-events-none"
-            viewBox="0 0 400 120"
+            className="absolute -inset-16 sm:-inset-20 pointer-events-none w-[calc(100%+8rem)] sm:w-[calc(100%+10rem)] h-[calc(100%+8rem)] sm:h-[calc(100%+10rem)]"
+            viewBox="0 0 500 180"
             preserveAspectRatio="none"
           >
             <motion.ellipse
-              cx="200"
-              cy="60"
-              rx="190"
-              ry="52"
+              cx="250"
+              cy="90"
+              rx="240"
+              ry="80"
               fill="none"
               stroke="url(#markerGrad)"
-              strokeWidth="3"
+              strokeWidth="2.5"
               strokeLinecap="round"
-              strokeDasharray="800"
-              initial={{ strokeDashoffset: 800 }}
+              pathLength={1}
+              initial={{ strokeDasharray: 1, strokeDashoffset: 1 }}
               whileInView={{ strokeDashoffset: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 2, ease: "easeInOut" }}
-              style={{ filter: "drop-shadow(0 0 8px rgba(0,191,255,0.8))" }}
+              viewport={{ once: true, margin: "-15% 0px" }}
+              transition={{ duration: 2.6, ease: [0.65, 0, 0.35, 1] }}
+              style={{ filter: "drop-shadow(0 0 10px rgba(0,191,255,0.7))" }}
             />
             <defs>
               <linearGradient id="markerGrad" x1="0" y1="0" x2="1" y2="0">
@@ -359,7 +445,7 @@ function Contact() {
           </svg>
           <a
             href={`tel:+${WHATSAPP_NUMBER}`}
-            className="relative font-display font-black text-white text-[clamp(2rem,7vw,5rem)] tracking-tight hover:text-electric transition-colors"
+            className="relative font-display font-semibold text-white text-[clamp(1.75rem,6vw,4.5rem)] tracking-tight hover:text-electric transition-colors"
           >
             +48 531 589 533
           </a>
@@ -370,24 +456,21 @@ function Contact() {
             href={WA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-3 rounded-full bg-electric text-black px-8 py-4 font-display font-semibold hover:scale-105 hover:shadow-[0_0_40px_rgba(0,191,255,0.6)] transition-all"
+            className="group inline-flex items-center gap-3 rounded-full bg-electric text-black px-8 py-4 font-display font-medium hover:scale-105 hover:shadow-[0_0_40px_rgba(0,191,255,0.6)] transition-all"
           >
             <MessageCircle className="h-5 w-5" />
             Napisz na WhatsApp
           </a>
           <a
             href={SMS_URL}
-            className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/5 backdrop-blur px-8 py-4 font-display font-semibold text-white hover:border-electric hover:text-electric transition-all"
+            className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/5 backdrop-blur px-8 py-4 font-display font-medium text-white hover:border-electric hover:text-electric transition-all"
           >
             <Send className="h-5 w-5" />
             Wyślij SMS
           </a>
         </div>
 
-        <div className="mt-10 mx-auto max-w-xl rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-left">
-          <div className="text-xs uppercase tracking-widest text-electric mb-2">Gotowa wiadomość</div>
-          <p className="text-white/70 text-sm italic">„{WHATSAPP_MESSAGE}"</p>
-        </div>
+        <CopyMessage />
       </div>
     </section>
   );
@@ -397,7 +480,7 @@ function Footer() {
   return (
     <footer className="border-t border-white/5 bg-ink py-10 px-6">
       <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-white/40">
-        <div className="flex items-center gap-2 font-display font-bold text-white">
+        <div className="flex items-center gap-2 font-display font-semibold text-white">
           <span className="inline-block h-2 w-2 rounded-full bg-electric" />
           WeScale
         </div>
