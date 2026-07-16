@@ -139,7 +139,7 @@ function Hero() {
               style={{ opacity: line3Opacity, y: line3Y }}
               className="block mt-4 md:mt-6 text-white/90 text-[clamp(2rem,6vw,5rem)]"
             >
-              stronę internetową
+              STRONĘ
             </motion.span>
           </h1>
 
