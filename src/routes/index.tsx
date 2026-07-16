@@ -413,28 +413,27 @@ function Contact() {
           Zadzwoń, napisz na WhatsApp lub wyślij SMS. Odpowiadamy w mniej niż godzinę.
         </p>
 
-        {/* number with animated marker — enlarged */}
-        <div className="relative inline-block mb-12 px-8 py-6">
+        {/* number with refined, smaller marker */}
+        <div className="relative inline-block mb-12 px-6 py-4">
           <svg
-            className="absolute -inset-16 sm:-inset-20 pointer-events-none w-[calc(100%+8rem)] sm:w-[calc(100%+10rem)] h-[calc(100%+8rem)] sm:h-[calc(100%+10rem)]"
-            viewBox="0 0 500 180"
+            className="absolute -inset-6 sm:-inset-8 pointer-events-none w-[calc(100%+3rem)] sm:w-[calc(100%+4rem)] h-[calc(100%+3rem)] sm:h-[calc(100%+4rem)]"
+            viewBox="0 0 400 130"
             preserveAspectRatio="none"
           >
             <motion.ellipse
-              cx="250"
-              cy="90"
-              rx="240"
-              ry="80"
+              cx="200"
+              cy="65"
+              rx="188"
+              ry="55"
               fill="none"
               stroke="url(#markerGrad)"
-              strokeWidth="2.5"
+              strokeWidth="2"
               strokeLinecap="round"
-              pathLength={1}
-              initial={{ strokeDasharray: 1, strokeDashoffset: 1 }}
-              whileInView={{ strokeDashoffset: 0 }}
+              initial={{ pathLength: 0, opacity: 0 }}
+              whileInView={{ pathLength: 1, opacity: 1 }}
               viewport={{ once: true, margin: "-15% 0px" }}
-              transition={{ duration: 2.6, ease: [0.65, 0, 0.35, 1] }}
-              style={{ filter: "drop-shadow(0 0 10px rgba(0,191,255,0.7))" }}
+              transition={{ pathLength: { duration: 2, ease: [0.65, 0, 0.35, 1] }, opacity: { duration: 0.3 } }}
+              style={{ filter: "drop-shadow(0 0 8px rgba(0,191,255,0.6))" }}
             />
             <defs>
               <linearGradient id="markerGrad" x1="0" y1="0" x2="1" y2="0">
