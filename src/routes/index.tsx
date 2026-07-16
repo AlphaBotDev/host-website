@@ -18,6 +18,7 @@ const WHATSAPP_MESSAGE =
 const WA_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 const SMS_URL = `sms:+${WHATSAPP_NUMBER}?&body=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
+const UNDERLINE_DURATION = 1.8;
 const mockups = [mockup1, mockup2, mockup3, mockup4, mockup5];
 
 /**
@@ -26,10 +27,10 @@ const mockups = [mockup1, mockup2, mockup3, mockup4, mockup5];
  * into view; text appears first, stroke draws under it.
  */
 function BrushUnderline({
-  delay = 0.15,
-  duration = 1.1,
+  delay = 0.2,
+  duration = UNDERLINE_DURATION,
   color = "url(#brushGrad)",
-  strokeWidth = 6,
+  strokeWidth = 5,
   className = "",
 }: {
   delay?: number;
@@ -136,21 +137,19 @@ function Hero() {
             </motion.span>
             <motion.span
               style={{ opacity: line3Opacity, y: line3Y }}
-              className="block mt-3 md:mt-4 text-[clamp(2rem,6.5vw,5.25rem)]"
+              className="block mt-4 md:mt-6 text-white/90 text-[clamp(2rem,6vw,5rem)]"
             >
-              <span className="uppercase tracking-tight bg-gradient-to-r from-white via-white to-electric bg-clip-text text-transparent">
-                stronę internetową
-              </span>
+              stronę internetową
             </motion.span>
           </h1>
 
           <motion.div
             style={{ opacity: brandOpacity, y: brandY }}
-            className="mt-10 font-display font-bold text-white text-[clamp(2.75rem,8vw,6.5rem)] leading-none"
+            className="mt-20 md:mt-28 font-display font-bold text-white text-[clamp(2.75rem,8vw,6.5rem)] leading-none"
           >
             <span className="relative inline-block px-1">
               We
-              {showWeUnderline && <BrushUnderline delay={0.1} />}
+              {showWeUnderline && <BrushUnderline delay={0.15} />}
             </span>
             <span>Scale</span>
           </motion.div>
@@ -166,8 +165,8 @@ function Hero() {
 
 function CtaBlock() {
   return (
-    <section className="relative z-10 -mt-24 pb-32 px-6">
-      <div className="mx-auto max-w-3xl flex flex-col items-center gap-6 text-center">
+    <section className="relative z-10 -mt-12 md:-mt-16 pb-40 px-6">
+      <div className="mx-auto max-w-3xl flex flex-col items-center gap-10 text-center">
         <a
           href="#kontakt"
           className="group relative inline-flex items-center gap-2 rounded-full border-2 border-electric bg-transparent px-10 py-5 font-display text-lg font-medium text-white transition-all duration-300 hover:bg-electric hover:text-black hover:scale-105 hover:shadow-[0_0_40px_rgba(0,191,255,0.6)]"
@@ -176,7 +175,7 @@ function CtaBlock() {
           <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
         </a>
 
-        <div className="flex flex-wrap items-center justify-center gap-4">
+        <div className="flex flex-wrap items-center justify-center gap-6">
           <a
             href="#wycena"
             className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-6 py-3 text-sm font-medium text-white hover:border-electric hover:text-electric transition-all"
