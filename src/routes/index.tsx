@@ -165,8 +165,8 @@ function Hero() {
 
 function CtaBlock() {
   return (
-    <section className="relative z-10 -mt-24 pb-32 px-6">
-      <div className="mx-auto max-w-3xl flex flex-col items-center gap-6 text-center">
+    <section className="relative z-10 -mt-12 md:-mt-16 pb-40 px-6">
+      <div className="mx-auto max-w-3xl flex flex-col items-center gap-10 text-center">
         <a
           href="#kontakt"
           className="group relative inline-flex items-center gap-2 rounded-full border-2 border-electric bg-transparent px-10 py-5 font-display text-lg font-medium text-white transition-all duration-300 hover:bg-electric hover:text-black hover:scale-105 hover:shadow-[0_0_40px_rgba(0,191,255,0.6)]"
@@ -175,7 +175,7 @@ function CtaBlock() {
           <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
         </a>
 
-        <div className="flex flex-wrap items-center justify-center gap-4">
+        <div className="flex flex-wrap items-center justify-center gap-6">
           <a
             href="#wycena"
             className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-6 py-3 text-sm font-medium text-white hover:border-electric hover:text-electric transition-all"
