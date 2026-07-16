@@ -18,6 +18,7 @@ const WHATSAPP_MESSAGE =
 const WA_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 const SMS_URL = `sms:+${WHATSAPP_NUMBER}?&body=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
+const UNDERLINE_DURATION = 1.8;
 const mockups = [mockup1, mockup2, mockup3, mockup4, mockup5];
 
 /**
