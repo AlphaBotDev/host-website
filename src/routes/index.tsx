@@ -27,10 +27,10 @@ const mockups = [mockup1, mockup2, mockup3, mockup4, mockup5];
  * into view; text appears first, stroke draws under it.
  */
 function BrushUnderline({
-  delay = 0.15,
-  duration = 1.1,
+  delay = 0.2,
+  duration = UNDERLINE_DURATION,
   color = "url(#brushGrad)",
-  strokeWidth = 6,
+  strokeWidth = 5,
   className = "",
 }: {
   delay?: number;
