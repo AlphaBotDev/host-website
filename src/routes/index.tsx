@@ -21,7 +21,7 @@ const WHATSAPP_MESSAGE =
 const WA_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 const SMS_URL = `sms:+${WHATSAPP_NUMBER}?&body=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
-const UNDERLINE_DURATION = 1.8;
+const UNDERLINE_DURATION = 2.4;
 const mockups = [mockup1, mockup2, mockup3, mockup4, mockup5];
 
 /**
@@ -33,7 +33,7 @@ function BrushUnderline({
   delay = 0.2,
   duration = UNDERLINE_DURATION,
   color = "url(#brushGrad)",
-  strokeWidth = 5,
+  strokeWidth = 8,
   className = "",
 }: {
   delay?: number;
@@ -47,11 +47,12 @@ function BrushUnderline({
       aria-hidden="true"
       viewBox="0 0 300 24"
       preserveAspectRatio="none"
-      className={`pointer-events-none absolute left-0 right-0 -bottom-2 w-full h-[0.42em] ${className}`}
+      className={`pointer-events-none absolute left-0 right-0 -bottom-3 w-full h-[0.5em] ${className}`}
     >
       <defs>
         <linearGradient id="brushGrad" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor="#0571D3" />
+          <stop offset="50%" stopColor="#3AA6FF" />
           <stop offset="100%" stopColor="#1E90FF" />
         </linearGradient>
       </defs>
@@ -64,9 +65,10 @@ function BrushUnderline({
         initial={{ pathLength: 0, opacity: 0 }}
         whileInView={{ pathLength: 1, opacity: 1 }}
         viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-        transition={{ pathLength: { duration, delay, ease: [0.65, 0, 0.35, 1] }, opacity: { duration: 0.2, delay } }}
-        style={{ filter: "drop-shadow(0 0 8px rgba(5,113,211,0.55))" }}
+        transition={{ pathLength: { duration, delay, ease: [0.22, 1, 0.36, 1] }, opacity: { duration: 0.4, delay } }}
+        style={{ filter: "drop-shadow(0 0 14px rgba(5,113,211,0.85)) drop-shadow(0 0 28px rgba(30,144,255,0.45))" }}
       />
+
     </svg>
   );
 }
@@ -91,41 +93,34 @@ function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
 
-  // Compressed sequence — user reaches "twoją" quickly
+  // Compressed sequence — user reaches "TWOJĄ" quickly
   const line1Y = useTransform(scrollYProgress, [0, 0.15], [0, -12]);
   const line2Opacity = useTransform(scrollYProgress, [0.05, 0.18], [0, 1]);
   const line2Y = useTransform(scrollYProgress, [0.05, 0.18], [24, 0]);
-  const line3Opacity = useTransform(scrollYProgress, [0.22, 0.34], [0, 1]);
-  const line3Y = useTransform(scrollYProgress, [0.22, 0.34], [24, 0]);
-  const brandOpacity = useTransform(scrollYProgress, [0.45, 0.6], [0, 1]);
-  const brandY = useTransform(scrollYProgress, [0.45, 0.6], [30, 0]);
+  // Extra delay: third line only starts once "TWOJĄ" + its underline are done
+  const line3Opacity = useTransform(scrollYProgress, [0.42, 0.56], [0, 1]);
+  const line3Y = useTransform(scrollYProgress, [0.42, 0.56], [28, 0]);
+  const brandOpacity = useTransform(scrollYProgress, [0.66, 0.8], [0, 1]);
+  const brandY = useTransform(scrollYProgress, [0.66, 0.8], [30, 0]);
 
-  // Once "twoją" is fully in, trigger the brush underline
+  // Once "TWOJĄ" is fully in, trigger the brush underline
   const [showTwojaUnderline, setShowTwojaUnderline] = useState(false);
   const [showWeUnderline, setShowWeUnderline] = useState(false);
   scrollYProgress.on?.("change", (v) => {
     if (v > 0.2 && !showTwojaUnderline) setShowTwojaUnderline(true);
-    if (v > 0.62 && !showWeUnderline) setShowWeUnderline(true);
+    if (v > 0.82 && !showWeUnderline) setShowWeUnderline(true);
   });
 
   return (
     <section ref={ref} id="top" className="relative min-h-[200vh]">
-      <div className="sticky top-0 h-screen overflow-hidden bg-hero">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/4 left-1/5 h-96 w-96 rounded-full bg-[#0571D3]/10 blur-3xl animate-float-slow" />
-          <div
-            className="absolute bottom-1/4 right-1/5 h-[500px] w-[500px] rounded-full bg-[#1E90FF]/5 blur-3xl animate-float-slow"
-            style={{ animationDelay: "3s" }}
-          />
-          <div
-            className="absolute inset-0 opacity-[0.04]"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(5,113,211,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(5,113,211,.5) 1px, transparent 1px)",
-              backgroundSize: "60px 60px",
-            }}
-          />
-        </div>
+      <div className="sticky top-0 h-screen overflow-hidden bg-[#000000]">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(120% 80% at 50% 0%, rgba(5,113,211,0.35) 0%, rgba(5,113,211,0.10) 35%, rgba(0,0,0,0) 70%), radial-gradient(90% 60% at 50% 110%, rgba(5,113,211,0.18) 0%, rgba(0,0,0,0) 65%), linear-gradient(180deg, #000000 0%, #000000 100%)",
+          }}
+        />
 
         <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-center px-6 text-center">
           <h1 className="font-display font-bold leading-[1.02] tracking-tight text-white text-[clamp(2.75rem,9vw,7rem)]">
@@ -134,17 +129,18 @@ function Hero() {
             </motion.span>
             <motion.span style={{ opacity: line2Opacity, y: line2Y }} className="block mt-3 md:mt-4">
               <span className="relative inline-block px-1">
-                twoją
-                {showTwojaUnderline && <BrushUnderline delay={0.1} />}
+                TWOJĄ
+                {showTwojaUnderline && <BrushUnderline delay={0.2} />}
               </span>
             </motion.span>
             <motion.span
               style={{ opacity: line3Opacity, y: line3Y }}
               className="block mt-4 md:mt-6 text-white/90 text-[clamp(3.25rem,10vw,8rem)]"
             >
-              STRONĘ
+              Stronę
             </motion.span>
           </h1>
+
 
           <motion.div
             style={{ opacity: brandOpacity, y: brandY }}
@@ -168,7 +164,11 @@ function CtaBlock() {
     <section className="relative z-10 -mt-12 md:-mt-16 pb-40 px-6">
       <div className="mx-auto max-w-3xl flex flex-col items-center gap-10 text-center">
         <a
-          href="#kontakt"
+          href={WA_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+
+
           className="group relative inline-flex items-center gap-2 rounded-full border-2 border-electric bg-transparent px-10 py-5 font-display text-lg font-medium text-white transition-all duration-300 hover:bg-electric hover:text-black hover:scale-105 hover:shadow-[0_0_40px_rgba(5,113,211,0.6)]"
         >
           <span>Otrzymaj darmowy projekt</span>
