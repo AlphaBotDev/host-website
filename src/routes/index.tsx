@@ -7,6 +7,9 @@ import mockup2 from "@/assets/mockup-2.jpg";
 import mockup3 from "@/assets/mockup-3.jpg";
 import mockup4 from "@/assets/mockup-4.jpg";
 import mockup5 from "@/assets/mockup-5.jpg";
+import result1 from "@/assets/result-1.jpg";
+import review1 from "@/assets/review-1.jpg";
+import review2 from "@/assets/review-2.jpg";
 
 export const Route = createFileRoute("/")({
   component: Landing,
@@ -155,9 +158,6 @@ function Hero() {
           </motion.div>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs text-white/40 tracking-widest uppercase">
-          Scroll ↓
-        </div>
       </div>
     </section>
   );
@@ -583,6 +583,7 @@ function Landing() {
       <Hero />
       <CtaBlock />
       <Testimonials />
+      <Proof />
       <Marquee />
       <Pricing />
       <Contact />
