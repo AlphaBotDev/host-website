@@ -371,14 +371,28 @@ function Marquee() {
 
 function Pricing() {
   const tiers = [
-    { name: "Landing", price: "od 2 500 zł", features: ["1 strona premium", "Design + development", "Dostawa 7 dni"] },
-    { name: "Business", price: "od 5 900 zł", features: ["Do 8 podstron", "CMS + SEO", "Integracje"], featured: true },
-    { name: "Custom", price: "wycena indywidualna", features: ["Aplikacje webowe", "E-commerce", "Dedykowane funkcje"] },
+    {
+      name: "Landing",
+      price: "od 750zł",
+      features: ["1 podstawowa strona", "Design + Hosting (Dodatkowo Płatny)", "Dostawa w 48h"],
+      featured: true,
+    },
+    {
+      name: "Custom",
+      price: "Wycena indywidualna",
+      features: ["Personalizacja pod klienta", "E-commerce", "Dedykowane funkcje"],
+    },
   ];
   return (
     <section id="wycena" className="relative py-32 px-6">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-16 text-center">
+      <div className="mx-auto max-w-4xl">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-16 text-center"
+        >
           <h2 className="font-display font-semibold text-4xl md:text-6xl tracking-tight text-white">
             Transparentna{" "}
             <span className="relative inline-block px-1">
@@ -387,14 +401,18 @@ function Pricing() {
             </span>
           </h2>
           <p className="mt-4 text-white/60 max-w-xl mx-auto font-normal">
-            Trzy pakiety dopasowane do skali Twojego projektu. Bez ukrytych kosztów.
+            Pakiety dopasowane do skali Twojego projektu.
           </p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {tiers.map((t) => (
-            <div
+        </motion.div>
+        <div className="grid md:grid-cols-2 gap-6">
+          {tiers.map((t, i) => (
+            <motion.div
               key={t.name}
-              className={`relative rounded-2xl p-8 border transition-all ${
+              initial={{ opacity: 0, y: 36 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+              className={`relative rounded-2xl p-8 border transition-all duration-500 hover:-translate-y-1 ${
                 t.featured
                   ? "bg-gradient-to-b from-[#0571D3]/10 to-transparent border-electric shadow-[0_0_40px_rgba(5,113,211,0.15)]"
                   : "bg-white/[0.03] border-white/10 hover:border-white/20"
@@ -414,13 +432,14 @@ function Pricing() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
     </section>
   );
 }
+
 
 function CopyMessage() {
   const [copied, setCopied] = useState(false);
