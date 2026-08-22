@@ -168,6 +168,7 @@ function CtaBlock() {
           target="_blank"
           rel="noopener noreferrer"
 
+
           className="group relative inline-flex items-center gap-2 rounded-full border-2 border-electric bg-transparent px-10 py-5 font-display text-lg font-medium text-white transition-all duration-300 hover:bg-electric hover:text-black hover:scale-105 hover:shadow-[0_0_40px_rgba(5,113,211,0.6)]"
         >
           <span>Otrzymaj darmowy projekt</span>
