@@ -7,6 +7,9 @@ import mockup2 from "@/assets/mockup-2.jpg";
 import mockup3 from "@/assets/mockup-3.jpg";
 import mockup4 from "@/assets/mockup-4.jpg";
 import mockup5 from "@/assets/mockup-5.jpg";
+import result1 from "@/assets/result-1.jpg";
+import review1 from "@/assets/review-1.jpg";
+import review2 from "@/assets/review-2.jpg";
 
 export const Route = createFileRoute("/")({
   component: Landing,
@@ -48,8 +51,8 @@ function BrushUnderline({
     >
       <defs>
         <linearGradient id="brushGrad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#00BFFF" />
-          <stop offset="100%" stopColor="#00D4FF" />
+          <stop offset="0%" stopColor="#0571D3" />
+          <stop offset="100%" stopColor="#1E90FF" />
         </linearGradient>
       </defs>
       <motion.path
@@ -62,7 +65,7 @@ function BrushUnderline({
         whileInView={{ pathLength: 1, opacity: 1 }}
         viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
         transition={{ pathLength: { duration, delay, ease: [0.65, 0, 0.35, 1] }, opacity: { duration: 0.2, delay } }}
-        style={{ filter: "drop-shadow(0 0 8px rgba(0,191,255,0.55))" }}
+        style={{ filter: "drop-shadow(0 0 8px rgba(5,113,211,0.55))" }}
       />
     </svg>
   );
@@ -109,16 +112,16 @@ function Hero() {
     <section ref={ref} id="top" className="relative min-h-[200vh]">
       <div className="sticky top-0 h-screen overflow-hidden bg-hero">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/4 left-1/5 h-96 w-96 rounded-full bg-[#00BFFF]/10 blur-3xl animate-float-slow" />
+          <div className="absolute top-1/4 left-1/5 h-96 w-96 rounded-full bg-[#0571D3]/10 blur-3xl animate-float-slow" />
           <div
-            className="absolute bottom-1/4 right-1/5 h-[500px] w-[500px] rounded-full bg-[#00D4FF]/5 blur-3xl animate-float-slow"
+            className="absolute bottom-1/4 right-1/5 h-[500px] w-[500px] rounded-full bg-[#1E90FF]/5 blur-3xl animate-float-slow"
             style={{ animationDelay: "3s" }}
           />
           <div
             className="absolute inset-0 opacity-[0.04]"
             style={{
               backgroundImage:
-                "linear-gradient(rgba(0,191,255,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(0,191,255,.5) 1px, transparent 1px)",
+                "linear-gradient(rgba(5,113,211,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(5,113,211,.5) 1px, transparent 1px)",
               backgroundSize: "60px 60px",
             }}
           />
@@ -155,9 +158,6 @@ function Hero() {
           </motion.div>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs text-white/40 tracking-widest uppercase">
-          Scroll ↓
-        </div>
       </div>
     </section>
   );
@@ -169,7 +169,7 @@ function CtaBlock() {
       <div className="mx-auto max-w-3xl flex flex-col items-center gap-10 text-center">
         <a
           href="#kontakt"
-          className="group relative inline-flex items-center gap-2 rounded-full border-2 border-electric bg-transparent px-10 py-5 font-display text-lg font-medium text-white transition-all duration-300 hover:bg-electric hover:text-black hover:scale-105 hover:shadow-[0_0_40px_rgba(0,191,255,0.6)]"
+          className="group relative inline-flex items-center gap-2 rounded-full border-2 border-electric bg-transparent px-10 py-5 font-display text-lg font-medium text-white transition-all duration-300 hover:bg-electric hover:text-black hover:scale-105 hover:shadow-[0_0_40px_rgba(5,113,211,0.6)]"
         >
           <span>Otrzymaj darmowy projekt</span>
           <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -190,16 +190,17 @@ function CtaBlock() {
             <ArrowRight className="h-4 w-4" />
           </a>
           <div className="flex -space-x-3 ml-2">
-            {["from-[#00BFFF] to-[#0066cc]", "from-[#00D4FF] to-[#0099cc]", "from-[#66E0FF] to-[#00BFFF]"].map((g, i) => (
+            {["from-[#0571D3] to-[#034a8c]", "from-[#1E90FF] to-[#0571D3]"].map((g, i) => (
               <div
                 key={i}
-                className={`h-10 w-10 rounded-full bg-gradient-to-br ${g} border-2 border-[#0A0A0A] shadow-lg flex items-center justify-center text-[10px] font-semibold text-white`}
-                style={{ zIndex: 3 - i }}
+                className={`h-10 w-10 rounded-full bg-gradient-to-br ${g} border-2 border-[#0A0A0A] shadow-lg flex items-center justify-center text-[10px] font-semibold text-white transition-transform duration-300 hover:scale-110 hover:-translate-y-0.5`}
+                style={{ zIndex: 2 - i }}
               >
-                {["JK", "AM", "PW"][i]}
+                {["PA", "PJ"][i]}
               </div>
             ))}
           </div>
+
         </div>
       </div>
     </section>
@@ -209,25 +210,29 @@ function CtaBlock() {
 function Testimonials() {
   const items = [
     {
-      name: "Jan Kowalski",
-      company: "Nova Studio",
+      name: "Pani Anna",
       quote:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Współpraca z WeScale przerosła nasze oczekiwania — projekt dostarczony w rekordowym czasie, a efekt wizualny robi wrażenie na każdym kliencie.",
+        "Witam, przepraszam że piszę o takiej godzinie ale chciałam bardzo podziękować. Strona działa wszystko jest super, dodatkowo z pomocy byłam w stanie sama ogarnąć pozycjonowanie dziękuję bardzo jeszcze raz 🙏",
     },
     {
-      name: "Anna Majewska",
-      company: "Loft & Co.",
+      name: "Patrycja J",
       quote:
-        "Sed do eiusmod tempor incididunt ut labore. Zespół WeScale rozumie biznes, nie tylko design. Konwersje wzrosły o 220% w pierwszym miesiącu po uruchomieniu nowej strony.",
+        "Bardzo Ci dziękuję za zaangażowanie, jak masz jakieś dotychczasowe projekty i podeślesz mi swoje prace, to będę dawać namiary na Ciebie, jeśli ktoś by potrzebował.",
     },
   ];
 
   return (
     <section id="opinie" className="relative py-32 px-6 bg-ink-2">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-16 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-16 text-center"
+        >
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-electric tracking-widest uppercase mb-4">
-            <Star className="h-3 w-3 fill-current" /> Opinie klientów
+            <Star className="h-3 w-3 fill-[#FFC53D] text-[#FFC53D]" /> Opinie klientów
           </div>
           <h2 className="font-display font-semibold text-4xl md:text-6xl tracking-tight text-white">
             Zaufali nam{" "}
@@ -236,7 +241,7 @@ function Testimonials() {
               <BrushUnderline delay={0.2} />
             </span>
           </h2>
-        </div>
+        </motion.div>
 
         <div className="grid md:grid-cols-2 gap-6">
           {items.map((t, i) => (
@@ -245,23 +250,30 @@ function Testimonials() {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, delay: i * 0.15 }}
-              className="group relative rounded-2xl bg-gradient-to-b from-white/[0.04] to-transparent border border-white/10 p-8 md:p-10 overflow-hidden hover:border-electric/40 transition-colors"
+              transition={{ duration: 0.8, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="group relative rounded-2xl bg-gradient-to-b from-white/[0.04] to-transparent border border-white/10 p-8 md:p-10 overflow-hidden hover:border-electric/40 hover:-translate-y-1 transition-all duration-500"
             >
-              <div className="absolute left-0 top-8 bottom-8 w-[3px] bg-gradient-to-b from-[#00BFFF] to-[#00D4FF] rounded-r shadow-[0_0_20px_rgba(0,191,255,0.6)]" />
+              <div className="absolute left-0 top-8 bottom-8 w-[3px] bg-gradient-to-b from-[#0571D3] to-[#1E90FF] rounded-r shadow-[0_0_20px_rgba(5,113,211,0.6)]" />
               <div className="flex gap-1 mb-6">
                 {Array.from({ length: 5 }).map((_, s) => (
-                  <Star key={s} className="h-4 w-4 fill-electric text-electric" />
+                  <motion.span
+                    key={s}
+                    initial={{ opacity: 0, scale: 0.6 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.2 + s * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <Star className="h-4 w-4 fill-[#FFC53D] text-[#FFC53D]" />
+                  </motion.span>
                 ))}
               </div>
               <p className="text-lg text-white/80 leading-relaxed mb-8 font-normal">"{t.quote}"</p>
               <div className="flex items-center gap-4">
-                <div className="h-12 w-12 rounded-full bg-gradient-to-br from-[#00BFFF] to-[#0066cc] flex items-center justify-center font-semibold text-white">
+                <div className="h-12 w-12 rounded-full bg-gradient-to-br from-[#0571D3] to-[#034a8c] flex items-center justify-center font-semibold text-white">
                   {t.name.split(" ").map((n) => n[0]).join("")}
                 </div>
                 <div>
                   <div className="font-medium text-white">{t.name}</div>
-                  <div className="text-sm text-white/50">{t.company}</div>
                 </div>
               </div>
             </motion.div>
@@ -271,6 +283,58 @@ function Testimonials() {
     </section>
   );
 }
+
+function Proof() {
+  const shots = [
+    { src: result1, label: "Wyniki", alt: "Zrzut ekranu z wynikami kampanii" },
+    { src: review1, label: "Opinia", alt: "Zrzut ekranu wiadomości z opinią klienta" },
+    { src: review2, label: "Opinia", alt: "Zrzut ekranu wiadomości z opinią klientki" },
+  ];
+  return (
+    <section id="dowody" className="relative py-28 px-6 bg-ink">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className="mx-auto max-w-3xl text-center mb-14"
+      >
+        <p className="text-sm uppercase tracking-widest text-white/40 mb-4">Opinie i wyniki</p>
+        <h2 className="font-display font-semibold text-4xl md:text-5xl tracking-tight text-white">
+          Prawdziwe{" "}
+          <span className="relative inline-block px-1">
+            dowody
+            <BrushUnderline delay={0.2} />
+          </span>
+        </h2>
+      </motion.div>
+
+      <div className="mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-3 gap-5">
+        {shots.map((s, i) => (
+          <motion.figure
+            key={i}
+            initial={{ opacity: 0, y: 36, scale: 0.97 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+            className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] shadow-[var(--shadow-card)] hover:border-electric/40 hover:-translate-y-1 transition-all duration-500"
+          >
+            <img
+              src={s.src}
+              alt={s.alt}
+              loading="lazy"
+              className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.03]"
+            />
+            <figcaption className="absolute top-3 left-3 rounded-full bg-black/60 backdrop-blur px-3 py-1 text-[11px] uppercase tracking-widest text-electric">
+              {s.label}
+            </figcaption>
+          </motion.figure>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 
 function Marquee() {
   const doubled = [...mockups, ...mockups];
@@ -307,14 +371,28 @@ function Marquee() {
 
 function Pricing() {
   const tiers = [
-    { name: "Landing", price: "od 2 500 zł", features: ["1 strona premium", "Design + development", "Dostawa 7 dni"] },
-    { name: "Business", price: "od 5 900 zł", features: ["Do 8 podstron", "CMS + SEO", "Integracje"], featured: true },
-    { name: "Custom", price: "wycena indywidualna", features: ["Aplikacje webowe", "E-commerce", "Dedykowane funkcje"] },
+    {
+      name: "Landing",
+      price: "od 750zł",
+      features: ["1 podstawowa strona", "Design + Hosting (Dodatkowo Płatny)", "Dostawa w 48h"],
+      featured: true,
+    },
+    {
+      name: "Custom",
+      price: "Wycena indywidualna",
+      features: ["Personalizacja pod klienta", "E-commerce", "Dedykowane funkcje"],
+    },
   ];
   return (
     <section id="wycena" className="relative py-32 px-6">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-16 text-center">
+      <div className="mx-auto max-w-4xl">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-16 text-center"
+        >
           <h2 className="font-display font-semibold text-4xl md:text-6xl tracking-tight text-white">
             Transparentna{" "}
             <span className="relative inline-block px-1">
@@ -323,16 +401,20 @@ function Pricing() {
             </span>
           </h2>
           <p className="mt-4 text-white/60 max-w-xl mx-auto font-normal">
-            Trzy pakiety dopasowane do skali Twojego projektu. Bez ukrytych kosztów.
+            Pakiety dopasowane do skali Twojego projektu.
           </p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {tiers.map((t) => (
-            <div
+        </motion.div>
+        <div className="grid md:grid-cols-2 gap-6">
+          {tiers.map((t, i) => (
+            <motion.div
               key={t.name}
-              className={`relative rounded-2xl p-8 border transition-all ${
+              initial={{ opacity: 0, y: 36 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+              className={`relative rounded-2xl p-8 border transition-all duration-500 hover:-translate-y-1 ${
                 t.featured
-                  ? "bg-gradient-to-b from-[#00BFFF]/10 to-transparent border-electric shadow-[0_0_40px_rgba(0,191,255,0.15)]"
+                  ? "bg-gradient-to-b from-[#0571D3]/10 to-transparent border-electric shadow-[0_0_40px_rgba(5,113,211,0.15)]"
                   : "bg-white/[0.03] border-white/10 hover:border-white/20"
               }`}
             >
@@ -350,13 +432,14 @@ function Pricing() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
     </section>
   );
 }
+
 
 function CopyMessage() {
   const [copied, setCopied] = useState(false);
@@ -394,7 +477,7 @@ function Contact() {
   return (
     <section id="kontakt" className="relative py-32 px-6 overflow-hidden">
       <div className="absolute inset-0 bg-hero opacity-70" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-[#00BFFF]/10 blur-[120px]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-[#0571D3]/10 blur-[120px]" />
 
       <div className="relative mx-auto max-w-4xl text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-electric/30 bg-electric/5 px-4 py-1.5 text-xs font-medium text-electric tracking-widest uppercase mb-8">
@@ -432,12 +515,12 @@ function Contact() {
               whileInView={{ pathLength: 1, opacity: 1 }}
               viewport={{ once: true, margin: "-15% 0px" }}
               transition={{ pathLength: { duration: 2, ease: [0.65, 0, 0.35, 1] }, opacity: { duration: 0.3 } }}
-              style={{ filter: "drop-shadow(0 0 8px rgba(0,191,255,0.6))" }}
+              style={{ filter: "drop-shadow(0 0 8px rgba(5,113,211,0.6))" }}
             />
             <defs>
               <linearGradient id="markerGrad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#00BFFF" />
-                <stop offset="100%" stopColor="#00D4FF" />
+                <stop offset="0%" stopColor="#0571D3" />
+                <stop offset="100%" stopColor="#1E90FF" />
               </linearGradient>
             </defs>
           </svg>
@@ -454,7 +537,7 @@ function Contact() {
             href={WA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-3 rounded-full bg-electric text-black px-8 py-4 font-display font-medium hover:scale-105 hover:shadow-[0_0_40px_rgba(0,191,255,0.6)] transition-all"
+            className="group inline-flex items-center gap-3 rounded-full bg-electric text-black px-8 py-4 font-display font-medium hover:scale-105 hover:shadow-[0_0_40px_rgba(5,113,211,0.6)] transition-all"
           >
             <MessageCircle className="h-5 w-5" />
             Napisz na WhatsApp
@@ -500,6 +583,7 @@ function Landing() {
       <Hero />
       <CtaBlock />
       <Testimonials />
+      <Proof />
       <Marquee />
       <Pricing />
       <Contact />

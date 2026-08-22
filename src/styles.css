@@ -54,13 +54,13 @@
   --input: oklch(1 0 0 / 12%);
   --ring: oklch(0.78 0.17 235);
 
-  --electric: #00BFFF;
-  --electric-bright: #00D4FF;
+  --electric: #0571D3;
+  --electric-bright: #1E90FF;
   --ink: #0A0A0A;
   --ink-2: #111111;
 
-  --gradient-hero: radial-gradient(ellipse at 20% 0%, rgba(0, 191, 255, 0.15), transparent 50%), radial-gradient(ellipse at 80% 100%, rgba(0, 212, 255, 0.08), transparent 50%), linear-gradient(180deg, #0A0A0A, #050505);
-  --glow-electric: 0 0 40px rgba(0, 191, 255, 0.45), 0 0 80px rgba(0, 191, 255, 0.2);
+  --gradient-hero: radial-gradient(ellipse at 20% 0%, rgba(5, 113, 211, 0.15), transparent 50%), radial-gradient(ellipse at 80% 100%, rgba(30, 144, 255, 0.08), transparent 50%), linear-gradient(180deg, #0A0A0A, #050505);
+  --glow-electric: 0 0 40px rgba(5, 113, 211, 0.45), 0 0 80px rgba(5, 113, 211, 0.2);
   --shadow-card: 0 20px 60px -20px rgba(0, 0, 0, 0.6);
 }
 
