@@ -48,8 +48,8 @@ function BrushUnderline({
     >
       <defs>
         <linearGradient id="brushGrad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#00BFFF" />
-          <stop offset="100%" stopColor="#00D4FF" />
+          <stop offset="0%" stopColor="#0571D3" />
+          <stop offset="100%" stopColor="#1E90FF" />
         </linearGradient>
       </defs>
       <motion.path
@@ -62,7 +62,7 @@ function BrushUnderline({
         whileInView={{ pathLength: 1, opacity: 1 }}
         viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
         transition={{ pathLength: { duration, delay, ease: [0.65, 0, 0.35, 1] }, opacity: { duration: 0.2, delay } }}
-        style={{ filter: "drop-shadow(0 0 8px rgba(0,191,255,0.55))" }}
+        style={{ filter: "drop-shadow(0 0 8px rgba(5,113,211,0.55))" }}
       />
     </svg>
   );
@@ -109,16 +109,16 @@ function Hero() {
     <section ref={ref} id="top" className="relative min-h-[200vh]">
       <div className="sticky top-0 h-screen overflow-hidden bg-hero">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/4 left-1/5 h-96 w-96 rounded-full bg-[#00BFFF]/10 blur-3xl animate-float-slow" />
+          <div className="absolute top-1/4 left-1/5 h-96 w-96 rounded-full bg-[#0571D3]/10 blur-3xl animate-float-slow" />
           <div
-            className="absolute bottom-1/4 right-1/5 h-[500px] w-[500px] rounded-full bg-[#00D4FF]/5 blur-3xl animate-float-slow"
+            className="absolute bottom-1/4 right-1/5 h-[500px] w-[500px] rounded-full bg-[#1E90FF]/5 blur-3xl animate-float-slow"
             style={{ animationDelay: "3s" }}
           />
           <div
             className="absolute inset-0 opacity-[0.04]"
             style={{
               backgroundImage:
-                "linear-gradient(rgba(0,191,255,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(0,191,255,.5) 1px, transparent 1px)",
+                "linear-gradient(rgba(5,113,211,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(5,113,211,.5) 1px, transparent 1px)",
               backgroundSize: "60px 60px",
             }}
           />
@@ -169,7 +169,7 @@ function CtaBlock() {
       <div className="mx-auto max-w-3xl flex flex-col items-center gap-10 text-center">
         <a
           href="#kontakt"
-          className="group relative inline-flex items-center gap-2 rounded-full border-2 border-electric bg-transparent px-10 py-5 font-display text-lg font-medium text-white transition-all duration-300 hover:bg-electric hover:text-black hover:scale-105 hover:shadow-[0_0_40px_rgba(0,191,255,0.6)]"
+          className="group relative inline-flex items-center gap-2 rounded-full border-2 border-electric bg-transparent px-10 py-5 font-display text-lg font-medium text-white transition-all duration-300 hover:bg-electric hover:text-black hover:scale-105 hover:shadow-[0_0_40px_rgba(5,113,211,0.6)]"
         >
           <span>Otrzymaj darmowy projekt</span>
           <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -190,7 +190,7 @@ function CtaBlock() {
             <ArrowRight className="h-4 w-4" />
           </a>
           <div className="flex -space-x-3 ml-2">
-            {["from-[#00BFFF] to-[#0066cc]", "from-[#00D4FF] to-[#0099cc]", "from-[#66E0FF] to-[#00BFFF]"].map((g, i) => (
+            {["from-[#0571D3] to-[#0066cc]", "from-[#1E90FF] to-[#0099cc]", "from-[#66E0FF] to-[#0571D3]"].map((g, i) => (
               <div
                 key={i}
                 className={`h-10 w-10 rounded-full bg-gradient-to-br ${g} border-2 border-[#0A0A0A] shadow-lg flex items-center justify-center text-[10px] font-semibold text-white`}
@@ -248,7 +248,7 @@ function Testimonials() {
               transition={{ duration: 0.6, delay: i * 0.15 }}
               className="group relative rounded-2xl bg-gradient-to-b from-white/[0.04] to-transparent border border-white/10 p-8 md:p-10 overflow-hidden hover:border-electric/40 transition-colors"
             >
-              <div className="absolute left-0 top-8 bottom-8 w-[3px] bg-gradient-to-b from-[#00BFFF] to-[#00D4FF] rounded-r shadow-[0_0_20px_rgba(0,191,255,0.6)]" />
+              <div className="absolute left-0 top-8 bottom-8 w-[3px] bg-gradient-to-b from-[#0571D3] to-[#1E90FF] rounded-r shadow-[0_0_20px_rgba(5,113,211,0.6)]" />
               <div className="flex gap-1 mb-6">
                 {Array.from({ length: 5 }).map((_, s) => (
                   <Star key={s} className="h-4 w-4 fill-electric text-electric" />
@@ -256,7 +256,7 @@ function Testimonials() {
               </div>
               <p className="text-lg text-white/80 leading-relaxed mb-8 font-normal">"{t.quote}"</p>
               <div className="flex items-center gap-4">
-                <div className="h-12 w-12 rounded-full bg-gradient-to-br from-[#00BFFF] to-[#0066cc] flex items-center justify-center font-semibold text-white">
+                <div className="h-12 w-12 rounded-full bg-gradient-to-br from-[#0571D3] to-[#0066cc] flex items-center justify-center font-semibold text-white">
                   {t.name.split(" ").map((n) => n[0]).join("")}
                 </div>
                 <div>
@@ -332,7 +332,7 @@ function Pricing() {
               key={t.name}
               className={`relative rounded-2xl p-8 border transition-all ${
                 t.featured
-                  ? "bg-gradient-to-b from-[#00BFFF]/10 to-transparent border-electric shadow-[0_0_40px_rgba(0,191,255,0.15)]"
+                  ? "bg-gradient-to-b from-[#0571D3]/10 to-transparent border-electric shadow-[0_0_40px_rgba(5,113,211,0.15)]"
                   : "bg-white/[0.03] border-white/10 hover:border-white/20"
               }`}
             >
@@ -394,7 +394,7 @@ function Contact() {
   return (
     <section id="kontakt" className="relative py-32 px-6 overflow-hidden">
       <div className="absolute inset-0 bg-hero opacity-70" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-[#00BFFF]/10 blur-[120px]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-[#0571D3]/10 blur-[120px]" />
 
       <div className="relative mx-auto max-w-4xl text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-electric/30 bg-electric/5 px-4 py-1.5 text-xs font-medium text-electric tracking-widest uppercase mb-8">
@@ -432,12 +432,12 @@ function Contact() {
               whileInView={{ pathLength: 1, opacity: 1 }}
               viewport={{ once: true, margin: "-15% 0px" }}
               transition={{ pathLength: { duration: 2, ease: [0.65, 0, 0.35, 1] }, opacity: { duration: 0.3 } }}
-              style={{ filter: "drop-shadow(0 0 8px rgba(0,191,255,0.6))" }}
+              style={{ filter: "drop-shadow(0 0 8px rgba(5,113,211,0.6))" }}
             />
             <defs>
               <linearGradient id="markerGrad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#00BFFF" />
-                <stop offset="100%" stopColor="#00D4FF" />
+                <stop offset="0%" stopColor="#0571D3" />
+                <stop offset="100%" stopColor="#1E90FF" />
               </linearGradient>
             </defs>
           </svg>
@@ -454,7 +454,7 @@ function Contact() {
             href={WA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-3 rounded-full bg-electric text-black px-8 py-4 font-display font-medium hover:scale-105 hover:shadow-[0_0_40px_rgba(0,191,255,0.6)] transition-all"
+            className="group inline-flex items-center gap-3 rounded-full bg-electric text-black px-8 py-4 font-display font-medium hover:scale-105 hover:shadow-[0_0_40px_rgba(5,113,211,0.6)] transition-all"
           >
             <MessageCircle className="h-5 w-5" />
             Napisz na WhatsApp
