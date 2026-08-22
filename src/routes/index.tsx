@@ -190,16 +190,17 @@ function CtaBlock() {
             <ArrowRight className="h-4 w-4" />
           </a>
           <div className="flex -space-x-3 ml-2">
-            {["from-[#0571D3] to-[#0066cc]", "from-[#1E90FF] to-[#0099cc]", "from-[#66E0FF] to-[#0571D3]"].map((g, i) => (
+            {["from-[#0571D3] to-[#034a8c]", "from-[#1E90FF] to-[#0571D3]"].map((g, i) => (
               <div
                 key={i}
-                className={`h-10 w-10 rounded-full bg-gradient-to-br ${g} border-2 border-[#0A0A0A] shadow-lg flex items-center justify-center text-[10px] font-semibold text-white`}
-                style={{ zIndex: 3 - i }}
+                className={`h-10 w-10 rounded-full bg-gradient-to-br ${g} border-2 border-[#0A0A0A] shadow-lg flex items-center justify-center text-[10px] font-semibold text-white transition-transform duration-300 hover:scale-110 hover:-translate-y-0.5`}
+                style={{ zIndex: 2 - i }}
               >
-                {["JK", "AM", "PW"][i]}
+                {["PA", "PJ"][i]}
               </div>
             ))}
           </div>
+
         </div>
       </div>
     </section>
