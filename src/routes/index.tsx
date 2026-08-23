@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Check, Copy, MessageCircle, Send, Star } from "lucide-react";
 import mockup1 from "@/assets/mockup-1.jpg";
 import mockup2 from "@/assets/mockup-2.jpg";
