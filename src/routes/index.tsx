@@ -93,22 +93,56 @@ function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
 
-  // Compressed sequence — user reaches "TWOJĄ" quickly
-  const line1Y = useTransform(scrollYProgress, [0, 0.15], [0, -12]);
-  const line2Opacity = useTransform(scrollYProgress, [0.05, 0.18], [0, 1]);
-  const line2Y = useTransform(scrollYProgress, [0.05, 0.18], [24, 0]);
-  // Extra delay: third line only starts once "TWOJĄ" + its underline are done
-  const line3Opacity = useTransform(scrollYProgress, [0.42, 0.56], [0, 1]);
-  const line3Y = useTransform(scrollYProgress, [0.42, 0.56], [28, 0]);
-  const brandOpacity = useTransform(scrollYProgress, [0.66, 0.8], [0, 1]);
-  const brandY = useTransform(scrollYProgress, [0.66, 0.8], [30, 0]);
+  const brandOpacity = useTransform(scrollYProgress, [0.3, 0.55], [0, 1]);
+  const brandY = useTransform(scrollYProgress, [0.3, 0.55], [30, 0]);
 
-  // Once "TWOJĄ" is fully in, trigger the brush underline
+  // Timed intro: three words appear one after another, scrolling is locked meanwhile
+  const [step, setStep] = useState(0); // 0 -> 1 -> 2 -> 3 (all words visible)
   const [showTwojaUnderline, setShowTwojaUnderline] = useState(false);
   const [showWeUnderline, setShowWeUnderline] = useState(false);
+
   scrollYProgress.on?.("change", (v) => {
-    if (v > 0.2 && !showTwojaUnderline) setShowTwojaUnderline(true);
-    if (v > 0.82 && !showWeUnderline) setShowWeUnderline(true);
+    if (v > 0.6 && !showWeUnderline) setShowWeUnderline(true);
+  });
+
+  useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
+    const prevHtml = html.style.overflow;
+    const prevBody = body.style.overflow;
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+    window.scrollTo(0, 0);
+
+    const block = (e: Event) => e.preventDefault();
+    window.addEventListener("wheel", block, { passive: false });
+    window.addEventListener("touchmove", block, { passive: false });
+
+    const unlock = () => {
+      html.style.overflow = prevHtml;
+      body.style.overflow = prevBody;
+      window.removeEventListener("wheel", block);
+      window.removeEventListener("touchmove", block);
+    };
+
+    const timers = [
+      window.setTimeout(() => setStep(1), 250),
+      window.setTimeout(() => setStep(2), 1400),
+      window.setTimeout(() => setShowTwojaUnderline(true), 2200),
+      window.setTimeout(() => setStep(3), 3600),
+      window.setTimeout(unlock, 4600),
+    ];
+
+    return () => {
+      timers.forEach(clearTimeout);
+      unlock();
+    };
+  }, []);
+
+  const reveal = (visible: boolean) => ({
+    initial: { opacity: 0, y: 26 },
+    animate: visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 26 },
+    transition: { duration: 1.1, ease: [0.22, 1, 0.36, 1] as const },
   });
 
   return (
@@ -124,22 +158,23 @@ function Hero() {
 
         <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-center px-6 text-center">
           <h1 className="font-display font-bold leading-[1.02] tracking-tight text-white text-[clamp(2.75rem,9vw,7rem)]">
-            <motion.span style={{ y: line1Y }} className="block">
+            <motion.span {...reveal(step >= 1)} className="block">
               Zaprojektujemy
             </motion.span>
-            <motion.span style={{ opacity: line2Opacity, y: line2Y }} className="block mt-3 md:mt-4">
+            <motion.span {...reveal(step >= 2)} className="block mt-3 md:mt-4">
               <span className="relative inline-block px-1">
                 TWOJĄ
-                {showTwojaUnderline && <BrushUnderline delay={0.2} />}
+                {showTwojaUnderline && <BrushUnderline delay={0} />}
               </span>
             </motion.span>
             <motion.span
-              style={{ opacity: line3Opacity, y: line3Y }}
+              {...reveal(step >= 3)}
               className="block mt-4 md:mt-6 text-white/90 text-[clamp(3.25rem,10vw,8rem)]"
             >
               Stronę
             </motion.span>
           </h1>
+
 
 
           <motion.div
