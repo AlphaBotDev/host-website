@@ -136,7 +136,8 @@ function Hero() {
   });
 
   return (
-    <section ref={ref} id="top" className="relative min-h-[200vh]">
+    <section id="top" className="relative min-h-[200vh]">
+
       <div className="sticky top-0 h-screen overflow-hidden bg-[#000000]">
         <div
           className="absolute inset-0 pointer-events-none"
