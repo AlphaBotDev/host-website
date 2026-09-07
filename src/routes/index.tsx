@@ -177,16 +177,6 @@ function Hero() {
 
 
 
-          <motion.div
-            style={{ opacity: brandOpacity, y: brandY }}
-            className="mt-20 md:mt-28 font-display font-bold text-white text-[clamp(2.75rem,8vw,6.5rem)] leading-none"
-          >
-            <span className="relative inline-block px-1">
-              We
-              {showWeUnderline && <BrushUnderline delay={0.15} />}
-            </span>
-            <span>Scale</span>
-          </motion.div>
         </div>
 
       </div>
