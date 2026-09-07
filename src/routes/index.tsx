@@ -178,45 +178,54 @@ function Hero() {
 function CtaBlock() {
   return (
     <section className="relative z-10 -mt-12 md:-mt-16 pb-40 px-6">
-      <div className="mx-auto max-w-3xl flex flex-col items-center gap-10 text-center">
+      <div className="mx-auto max-w-3xl flex flex-col items-center gap-12 text-center">
+        {/* Premium primary CTA with animated gradient border */}
         <a
           href={WA_URL}
           target="_blank"
           rel="noopener noreferrer"
-
-
-          className="group relative inline-flex items-center gap-2 rounded-full border-2 border-electric bg-transparent px-10 py-5 font-display text-lg font-medium text-white transition-all duration-300 hover:bg-electric hover:text-black hover:scale-105 hover:shadow-[0_0_40px_rgba(5,113,211,0.6)]"
+          className="group relative inline-flex items-center gap-2 rounded-full px-10 py-5 font-display text-lg font-medium text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_0_50px_rgba(5,113,211,0.5)]"
         >
-          <span>Otrzymaj darmowy projekt</span>
-          <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+          <span className="absolute inset-0 rounded-full border-2 border-electric bg-electric/5 backdrop-blur-sm transition-colors group-hover:bg-electric" />
+          <span className="absolute -inset-[1px] rounded-full bg-gradient-to-r from-[#0571D3] via-[#3AA6FF] to-[#0571D3] opacity-60 blur-sm group-hover:opacity-100 transition-opacity duration-500" />
+          <span className="relative z-10 flex items-center gap-2 group-hover:text-black transition-colors duration-300">
+            <span>Otrzymaj darmowy projekt</span>
+            <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+          </span>
         </a>
 
         <div className="flex flex-wrap items-center justify-center gap-6">
           <a
             href="#wycena"
-            className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-6 py-3 text-sm font-medium text-white hover:border-electric hover:text-electric transition-all"
+            className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-6 py-3 text-sm font-medium text-white hover:border-electric hover:text-electric hover:bg-white/[0.07] transition-all duration-300"
           >
             Zobacz wycenę
           </a>
           <a
             href="#opinie"
-            className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-6 py-3 text-sm font-medium text-white hover:border-electric hover:text-electric transition-all"
+            className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-6 py-3 text-sm font-medium text-white hover:border-electric hover:text-electric hover:bg-white/[0.07] transition-all duration-300"
           >
             Opinie
             <ArrowRight className="h-4 w-4" />
           </a>
-          <div className="flex -space-x-3 ml-2">
-            {["from-[#0571D3] to-[#034a8c]", "from-[#1E90FF] to-[#0571D3]"].map((g, i) => (
+          <div className="flex -space-x-2 ml-2">
+            {[
+              { from: "#0571D3", to: "#034a8c", ring: "#3AA6FF" },
+              { from: "#1E90FF", to: "#0571D3", ring: "#7EC8FF" },
+            ].map((g, i) => (
               <div
                 key={i}
-                className={`h-10 w-10 rounded-full bg-gradient-to-br ${g} border-2 border-[#0A0A0A] shadow-lg flex items-center justify-center text-[10px] font-semibold text-white transition-transform duration-300 hover:scale-110 hover:-translate-y-0.5`}
-                style={{ zIndex: 2 - i }}
+                className="relative h-10 w-10 rounded-full flex items-center justify-center text-[10px] font-semibold text-white transition-transform duration-300 hover:scale-110 hover:-translate-y-0.5"
+                style={{
+                  zIndex: 2 - i,
+                  background: `linear-gradient(135deg, ${g.from}, ${g.to})`,
+                  boxShadow: `0 0 0 2px #0A0A0A, 0 8px 24px -6px rgba(5,113,211,0.45), 0 0 0 1px ${g.ring}30`,
+                }}
               >
                 {["PA", "PJ"][i]}
               </div>
             ))}
           </div>
-
         </div>
       </div>
     </section>
