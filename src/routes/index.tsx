@@ -277,7 +277,7 @@ function Testimonials() {
           className="mb-16 text-center"
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-electric tracking-widest uppercase mb-4">
-            <Star className="h-3 w-3 fill-[#FFC53D] text-[#FFC53D]" /> Opinie klientów
+            <PremiumStar className="h-3.5 w-3.5" /> Opinie klientów
           </div>
           <h2 className="font-display font-semibold text-4xl md:text-6xl tracking-tight text-white">
             Zaufali nam{" "}
