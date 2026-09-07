@@ -355,9 +355,12 @@ function Proof() {
 function Marquee() {
   const doubled = [...mockups, ...mockups];
   return (
-    <section className="relative py-20 overflow-hidden bg-ink">
-      <div className="mb-10 px-6 text-center">
-        <p className="text-sm uppercase tracking-widest text-white/40">Wybrane realizacje</p>
+    <section className="relative py-24 overflow-hidden bg-ink">
+      <div className="mb-12 px-6 text-center">
+        <p className="text-sm uppercase tracking-widest text-white/40 mb-3">Projekty</p>
+        <h2 className="font-display font-semibold text-3xl md:text-4xl tracking-tight text-white">
+          W trakcie budowy
+        </h2>
       </div>
       <div className="group relative">
         <div className="flex gap-6 animate-marquee group-hover:[animation-play-state:paused] w-max">
@@ -368,13 +371,18 @@ function Marquee() {
             >
               <img
                 src={src}
-                alt={`Realizacja ${(i % mockups.length) + 1}`}
+                alt={`Projekt w trakcie budowy ${(i % mockups.length) + 1}`}
                 width={1200}
                 height={800}
                 loading="lazy"
                 className="h-full w-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+              <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px]">
+                <div className="rounded-full border border-electric/40 bg-electric/10 px-5 py-2 text-sm font-medium text-electric tracking-wide backdrop-blur-md">
+                  W TRAKCIE BUDOWY
+                </div>
+              </div>
             </div>
           ))}
         </div>
