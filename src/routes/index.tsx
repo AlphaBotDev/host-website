@@ -308,7 +308,7 @@ function Testimonials() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: 0.2 + s * 0.08, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    <Star className="h-4 w-4 fill-[#FFC53D] text-[#FFC53D]" />
+                    <PremiumStar className="h-4 w-4" />
                   </motion.span>
                 ))}
               </div>
