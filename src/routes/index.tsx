@@ -90,20 +90,10 @@ function Nav() {
 }
 
 function Hero() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-
-  const brandOpacity = useTransform(scrollYProgress, [0.3, 0.55], [0, 1]);
-  const brandY = useTransform(scrollYProgress, [0.3, 0.55], [30, 0]);
-
   // Timed intro: three words appear one after another, scrolling is locked meanwhile
   const [step, setStep] = useState(0); // 0 -> 1 -> 2 -> 3 (all words visible)
   const [showTwojaUnderline, setShowTwojaUnderline] = useState(false);
-  const [showWeUnderline, setShowWeUnderline] = useState(false);
 
-  scrollYProgress.on?.("change", (v) => {
-    if (v > 0.6 && !showWeUnderline) setShowWeUnderline(true);
-  });
 
   useEffect(() => {
     const html = document.documentElement;
