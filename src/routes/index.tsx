@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Check, Copy, MessageCircle, Send, Star } from "lucide-react";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { ArrowRight, Check, Copy, MessageCircle, Send } from "lucide-react";
 import mockup1 from "@/assets/mockup-1.jpg";
 import mockup2 from "@/assets/mockup-2.jpg";
 import mockup3 from "@/assets/mockup-3.jpg";
@@ -90,20 +90,10 @@ function Nav() {
 }
 
 function Hero() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-
-  const brandOpacity = useTransform(scrollYProgress, [0.3, 0.55], [0, 1]);
-  const brandY = useTransform(scrollYProgress, [0.3, 0.55], [30, 0]);
-
   // Timed intro: three words appear one after another, scrolling is locked meanwhile
   const [step, setStep] = useState(0); // 0 -> 1 -> 2 -> 3 (all words visible)
   const [showTwojaUnderline, setShowTwojaUnderline] = useState(false);
-  const [showWeUnderline, setShowWeUnderline] = useState(false);
 
-  scrollYProgress.on?.("change", (v) => {
-    if (v > 0.6 && !showWeUnderline) setShowWeUnderline(true);
-  });
 
   useEffect(() => {
     const html = document.documentElement;
@@ -146,7 +136,8 @@ function Hero() {
   });
 
   return (
-    <section ref={ref} id="top" className="relative min-h-[200vh]">
+    <section id="top" className="relative min-h-[200vh]">
+
       <div className="sticky top-0 h-screen overflow-hidden bg-[#000000]">
         <div
           className="absolute inset-0 pointer-events-none"
@@ -177,16 +168,6 @@ function Hero() {
 
 
 
-          <motion.div
-            style={{ opacity: brandOpacity, y: brandY }}
-            className="mt-20 md:mt-28 font-display font-bold text-white text-[clamp(2.75rem,8vw,6.5rem)] leading-none"
-          >
-            <span className="relative inline-block px-1">
-              We
-              {showWeUnderline && <BrushUnderline delay={0.15} />}
-            </span>
-            <span>Scale</span>
-          </motion.div>
         </div>
 
       </div>
@@ -197,48 +178,85 @@ function Hero() {
 function CtaBlock() {
   return (
     <section className="relative z-10 -mt-12 md:-mt-16 pb-40 px-6">
-      <div className="mx-auto max-w-3xl flex flex-col items-center gap-10 text-center">
+      <div className="mx-auto max-w-3xl flex flex-col items-center gap-12 text-center">
+        {/* Premium primary CTA with animated gradient border */}
         <a
           href={WA_URL}
           target="_blank"
           rel="noopener noreferrer"
-
-
-          className="group relative inline-flex items-center gap-2 rounded-full border-2 border-electric bg-transparent px-10 py-5 font-display text-lg font-medium text-white transition-all duration-300 hover:bg-electric hover:text-black hover:scale-105 hover:shadow-[0_0_40px_rgba(5,113,211,0.6)]"
+          className="group relative inline-flex items-center gap-2 rounded-full px-10 py-5 font-display text-lg font-medium text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_0_50px_rgba(5,113,211,0.5)]"
         >
-          <span>Otrzymaj darmowy projekt</span>
-          <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+          <span className="absolute inset-0 rounded-full border-2 border-electric bg-electric/5 backdrop-blur-sm transition-colors group-hover:bg-electric" />
+          <span className="absolute -inset-[1px] rounded-full bg-gradient-to-r from-[#0571D3] via-[#3AA6FF] to-[#0571D3] opacity-60 blur-sm group-hover:opacity-100 transition-opacity duration-500" />
+          <span className="relative z-10 flex items-center gap-2 group-hover:text-black transition-colors duration-300">
+            <span>Otrzymaj darmowy projekt</span>
+            <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+          </span>
         </a>
 
         <div className="flex flex-wrap items-center justify-center gap-6">
           <a
             href="#wycena"
-            className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-6 py-3 text-sm font-medium text-white hover:border-electric hover:text-electric transition-all"
+            className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-6 py-3 text-sm font-medium text-white hover:border-electric hover:text-electric hover:bg-white/[0.07] transition-all duration-300"
           >
             Zobacz wycenę
           </a>
           <a
             href="#opinie"
-            className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-6 py-3 text-sm font-medium text-white hover:border-electric hover:text-electric transition-all"
+            className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-6 py-3 text-sm font-medium text-white hover:border-electric hover:text-electric hover:bg-white/[0.07] transition-all duration-300"
           >
             Opinie
             <ArrowRight className="h-4 w-4" />
           </a>
-          <div className="flex -space-x-3 ml-2">
-            {["from-[#0571D3] to-[#034a8c]", "from-[#1E90FF] to-[#0571D3]"].map((g, i) => (
+          <div className="flex -space-x-2 ml-2">
+            {[
+              { from: "#0571D3", to: "#034a8c", ring: "#3AA6FF" },
+              { from: "#1E90FF", to: "#0571D3", ring: "#7EC8FF" },
+            ].map((g, i) => (
               <div
                 key={i}
-                className={`h-10 w-10 rounded-full bg-gradient-to-br ${g} border-2 border-[#0A0A0A] shadow-lg flex items-center justify-center text-[10px] font-semibold text-white transition-transform duration-300 hover:scale-110 hover:-translate-y-0.5`}
-                style={{ zIndex: 2 - i }}
+                className="relative h-10 w-10 rounded-full flex items-center justify-center text-[10px] font-semibold text-white transition-transform duration-300 hover:scale-110 hover:-translate-y-0.5"
+                style={{
+                  zIndex: 2 - i,
+                  background: `linear-gradient(135deg, ${g.from}, ${g.to})`,
+                  boxShadow: `0 0 0 2px #0A0A0A, 0 8px 24px -6px rgba(5,113,211,0.45), 0 0 0 1px ${g.ring}30`,
+                }}
               >
                 {["PA", "PJ"][i]}
               </div>
             ))}
           </div>
-
         </div>
       </div>
     </section>
+  );
+}
+
+function PremiumStar({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="goldGrad" x1="0" y1="0" x2="24" y2="24">
+          <stop offset="0%" stopColor="#FFD700" />
+          <stop offset="50%" stopColor="#FFC53D" />
+          <stop offset="100%" stopColor="#FFAA00" />
+        </linearGradient>
+        <filter id="goldGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="1.5" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+      </defs>
+      <path
+        d="M12 2l2.9 6.26L22 9.27l-5.4 4.73L18.1 22 12 18.27 5.9 22l1.5-8L2 9.27l7.1-.76L12 2z"
+        fill="url(#goldGrad)"
+        filter="url(#goldGlow)"
+      />
+    </svg>
   );
 }
 
@@ -256,6 +274,7 @@ function Testimonials() {
     },
   ];
 
+
   return (
     <section id="opinie" className="relative py-32 px-6 bg-ink-2">
       <div className="mx-auto max-w-6xl">
@@ -267,7 +286,7 @@ function Testimonials() {
           className="mb-16 text-center"
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-electric tracking-widest uppercase mb-4">
-            <Star className="h-3 w-3 fill-[#FFC53D] text-[#FFC53D]" /> Opinie klientów
+            <PremiumStar className="h-3.5 w-3.5" /> Opinie klientów
           </div>
           <h2 className="font-display font-semibold text-4xl md:text-6xl tracking-tight text-white">
             Zaufali nam{" "}
@@ -298,7 +317,7 @@ function Testimonials() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: 0.2 + s * 0.08, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    <Star className="h-4 w-4 fill-[#FFC53D] text-[#FFC53D]" />
+                    <PremiumStar className="h-4 w-4" />
                   </motion.span>
                 ))}
               </div>
@@ -374,9 +393,12 @@ function Proof() {
 function Marquee() {
   const doubled = [...mockups, ...mockups];
   return (
-    <section className="relative py-20 overflow-hidden bg-ink">
-      <div className="mb-10 px-6 text-center">
-        <p className="text-sm uppercase tracking-widest text-white/40">Wybrane realizacje</p>
+    <section className="relative py-24 overflow-hidden bg-ink">
+      <div className="mb-12 px-6 text-center">
+        <p className="text-sm uppercase tracking-widest text-white/40 mb-3">Projekty</p>
+        <h2 className="font-display font-semibold text-3xl md:text-4xl tracking-tight text-white">
+          W trakcie budowy
+        </h2>
       </div>
       <div className="group relative">
         <div className="flex gap-6 animate-marquee group-hover:[animation-play-state:paused] w-max">
@@ -387,13 +409,18 @@ function Marquee() {
             >
               <img
                 src={src}
-                alt={`Realizacja ${(i % mockups.length) + 1}`}
+                alt={`Projekt w trakcie budowy ${(i % mockups.length) + 1}`}
                 width={1200}
                 height={800}
                 loading="lazy"
                 className="h-full w-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+              <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px]">
+                <div className="rounded-full border border-electric/40 bg-electric/10 px-5 py-2 text-sm font-medium text-electric tracking-wide backdrop-blur-md">
+                  W TRAKCIE BUDOWY
+                </div>
+              </div>
             </div>
           ))}
         </div>
