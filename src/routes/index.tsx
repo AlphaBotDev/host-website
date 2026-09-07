@@ -223,6 +223,34 @@ function CtaBlock() {
   );
 }
 
+function PremiumStar({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="goldGrad" x1="0" y1="0" x2="24" y2="24">
+          <stop offset="0%" stopColor="#FFD700" />
+          <stop offset="50%" stopColor="#FFC53D" />
+          <stop offset="100%" stopColor="#FFAA00" />
+        </linearGradient>
+        <filter id="goldGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="1.5" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+      </defs>
+      <path
+        d="M12 2l2.9 6.26L22 9.27l-5.4 4.73L18.1 22 12 18.27 5.9 22l1.5-8L2 9.27l7.1-.76L12 2z"
+        fill="url(#goldGrad)"
+        filter="url(#goldGlow)"
+      />
+    </svg>
+  );
+}
+
 function Testimonials() {
   const items = [
     {
@@ -236,6 +264,7 @@ function Testimonials() {
         "Bardzo Ci dziękuję za zaangażowanie, jak masz jakieś dotychczasowe projekty i podeślesz mi swoje prace, to będę dawać namiary na Ciebie, jeśli ktoś by potrzebował.",
     },
   ];
+
 
   return (
     <section id="opinie" className="relative py-32 px-6 bg-ink-2">
